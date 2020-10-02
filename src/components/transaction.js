@@ -1,20 +1,23 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import PropTypes from "prop-types";
 
-export default (props) => {
+const Transaction = (props) => {
   const { transaction, amount } = props;
   return (
-    <View
-      style={[
-        styles.container,
-        amount > 0 ? styles.isIncome : styles.isExpense,
-      ]}
-    >
-      <Text style={styles.titleTodoItem}>{transaction}</Text>
-      <Text style={styles.titleTodoItem}>
-        {amount > 0 ? "" : "-"}${Math.abs(amount)}
-      </Text>
-    </View>
+    <TouchableOpacity>
+      <View
+        style={[
+          styles.container,
+          amount > 0 ? styles.isIncome : styles.isExpense,
+        ]}
+      >
+        <Text style={styles.titleTodoItem}>{transaction}</Text>
+        <Text style={styles.titleTodoItem}>
+          {amount > 0 ? "" : "-"}${Math.abs(amount)}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 const styles = StyleSheet.create({
@@ -40,3 +43,10 @@ const styles = StyleSheet.create({
     borderColor: "#ff0000",
   },
 });
+
+Transaction.propTypes = {
+  transaction: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+};
+
+export default Transaction;

@@ -1,27 +1,17 @@
 import React from "react";
-import { StyleSheet, View, FlatList } from "react-native";
-import Transaction from "./src/components/transaction";
-import useTracsaction from "./src/hooks/useTransaction";
+import { StyleSheet, View } from "react-native";
+import { TransactionProvider } from "./src/context/transactionContext";
+import FormAddTrans from "./src/components/formAddTrans";
+import ListTran from "./src/components/listTransaction";
 
-const items = [
-  { transaction: "buy car", amount: 955 },
-  { transaction: "sell tv", amount: -456 },
-  { transaction: "buy phone", amount: 355 },
-  { transaction: "ádsad", amount: 555 },
-];
 export default function App() {
-  const { transactions, addTransaction } = useTracsaction(items);
   return (
-    <View style={styles.container}>
-      <FlatList
-        contentContainerStyle={styles.scrollView}
-        data={transactions}
-        renderItem={({ item }) => (
-          <Transaction transaction={item.transaction} amount={item.amount} />
-        )}
-        keyExtractor={(item) => item.transaction}
-      />
-    </View>
+    <TransactionProvider>
+      <View style={styles.container}>
+        <FormAddTrans />
+        <ListTran />
+      </View>
+    </TransactionProvider>
   );
 }
 
@@ -31,8 +21,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "stretch",
     justifyContent: "center",
-  },
-  scrollView: {
-    marginHorizontal: 20,
   },
 });
